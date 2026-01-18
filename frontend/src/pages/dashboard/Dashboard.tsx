@@ -1,6 +1,13 @@
 import React from 'react';
 
 const Dashboard: React.FC = () => {
+  const colorClasses = {
+    blue: 'bg-blue-100',
+    green: 'bg-green-100',
+    yellow: 'bg-yellow-100',
+    purple: 'bg-purple-100',
+  };
+
   return (
     <div>
       <h1 className="text-3xl font-bold text-gray-900 mb-6">Dashboard</h1>
@@ -8,10 +15,10 @@ const Dashboard: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {/* Stats Cards */}
         {[
-          { title: 'Total Files', value: '0', icon: '📁', color: 'blue' },
-          { title: 'Messages', value: '0', icon: '💬', color: 'green' },
-          { title: 'Tasks', value: '0', icon: '✓', color: 'yellow' },
-          { title: 'Meetings', value: '0', icon: '📅', color: 'purple' },
+          { title: 'Total Files', value: '0', icon: '📁', color: 'blue' as const },
+          { title: 'Messages', value: '0', icon: '💬', color: 'green' as const },
+          { title: 'Tasks', value: '0', icon: '✓', color: 'yellow' as const },
+          { title: 'Meetings', value: '0', icon: '📅', color: 'purple' as const },
         ].map((stat, index) => (
           <div key={index} className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
@@ -19,7 +26,7 @@ const Dashboard: React.FC = () => {
                 <p className="text-sm font-medium text-gray-600">{stat.title}</p>
                 <p className="text-3xl font-bold text-gray-900 mt-2">{stat.value}</p>
               </div>
-              <div className={`text-4xl bg-${stat.color}-100 p-3 rounded-lg`}>
+              <div className={`text-4xl ${colorClasses[stat.color]} p-3 rounded-lg`}>
                 {stat.icon}
               </div>
             </div>
