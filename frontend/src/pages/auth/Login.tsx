@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../services/api';
+import { AxiosError } from 'axios';
+import type { ApiError } from '../../types';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -25,8 +27,13 @@ const Login: React.FC = () => {
         localStorage.setItem('auth_token', response.data.token);
         navigate('/dashboard');
       }
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const apiError = err.response?.data as ApiError | undefined;
+        setError(apiError?.message || 'Login failed. Please check your credentials.');
+      } else {
+        setError('An unexpected error occurred.');
+      }
     } finally {
       setLoading(false);
     }

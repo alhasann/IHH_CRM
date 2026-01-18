@@ -22,9 +22,19 @@ export interface Permission {
   description?: string;
 }
 
-export interface ApiResponse<T = any> {
+export interface ApiError {
+  message?: string;
+  errors?: Record<string, string[]>;
+}
+
+export interface LoginResponse {
+  token: string;
+  user?: User;
+}
+
+export interface ApiResponse<T = unknown> {
   success: boolean;
   message: string;
   data?: T;
-  errors?: any;
+  errors?: ApiError;
 }
